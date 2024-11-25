@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Artistas</title>
+</head>
+<body>
+  <h1>Gerenciar Artistas</h1>
+  <a href="/">Voltar para Home</a>
+
+  <!-- Formulário para adicionar artista -->
+  <h2>Adicionar Novo Artista</h2>
+  <form action="/artistas/add" method="POST">
+    <input type="text" name="name" placeholder="Nome do Artista" required>
+    <input type="text" name="genre" placeholder="Gênero Musical" required>
+    
+    <label>Associar Discos:</label>
+    <select name="albums" multiple>
+      <% albuns.forEach(album => { %>
+        <option value="<%= album.id %>"><%= album.title %></option>
+      <% }); %>
+    </select>
+  
+    <button type="submit">Adicionar Artista</button>
+  </form>
+  
+
+  <h2>Buscar Artista</h2>
+<form action="/artistas/search" method="GET">
+  <input type="text" name="name" placeholder="Nome">
+  <input type="text" name="genre" placeholder="Gênero">
+  <button type="submit">Buscar</button>
+</form>
+
+  <!-- Lista de artistas -->
+  <h2>Lista de Artistas</h2>
+  <ul>
+    <% artistas.forEach(artista => { %>
+      <li>
+        <strong>Nome:</strong> <%= artista.name %> |
+        <strong>Gênero:</strong> <%= artista.genre %>
+        <form action="/artistas/edit/<%= artista.id %>" method="POST" style="display:inline;">
+          <input type="text" name="name" value="<%= artista.name %>" required>
+          <input type="text" name="genre" value="<%= artista.genre %>" required>
+          <button type="submit">Editar</button>
+        </form>
+        <form action="/artistas/delete/<%= artista.id %>" method="POST" style="display:inline;">
+          <button type="submit">Remover</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+  
+
+</body>
+</html>

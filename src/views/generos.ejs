@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gêneros</title>
+</head>
+<body>
+  <h1>Gerenciar Gêneros</h1>
+  <a href="/">Voltar para Home</a>
+
+  <!-- Formulário para adicionar gênero -->
+  <form action="/generos/add" method="POST">
+    <input type="text" name="name" placeholder="Nome" required>
+    <input type="text" name="description" placeholder="Descrição">
+    <button type="submit">Adicionar</button>
+  </form>
+
+  <!-- Listar gêneros -->
+  <h2>Lista de Gêneros</h2>
+  <ul>
+    <% generos.forEach(genero => { %>
+      <li>
+        <strong>Nome:</strong> <%= genero.name %> |
+        <strong>Descrição:</strong> <%= genero.description || 'Sem descrição' %>
+        <form action="/generos/edit/<%= genero.id %>" method="POST" style="display:inline;">
+          <input type="text" name="name" value="<%= genero.name %>" required>
+          <input type="text" name="description" value="<%= genero.description %>">
+          <button type="submit">Editar</button>
+        </form>
+        <form action="/generos/delete/<%= genero.id %>" method="POST" style="display:inline;">
+          <button type="submit">Remover</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+  
+  </ul>
+</body>
+</html>
